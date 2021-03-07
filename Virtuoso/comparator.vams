@@ -1,0 +1,27 @@
+//Verilog-AMS HDL for "ADC_2bit", "OPamp" "verilogams"
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module OPamp (vin, ref, vout);
+
+input vin, ref;
+output vout;
+wire vout;
+parameter delay = 0, ttime = 1n;
+
+electrical vin, ref;
+real result;
+assign vout = result;
+	
+	always begin
+	@(cross((V(vin)-V(ref)),0))
+		if(V(vin)>V(ref))
+			result = 1;
+		else
+			result = 0;
+
+		//V(vout)<+ transition(result,0,1n,0,1n);
+	end
+
+endmodule
